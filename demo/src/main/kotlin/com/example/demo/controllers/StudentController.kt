@@ -10,20 +10,22 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-open class StudentController(
+class StudentController(
     val studentService: StudentService
 ) {
     private val logger = LoggerFactory.getLogger(StudentController::class.java)
 
-    @PostMapping("/api/students")
-    open fun createStudent(@RequestBody request: StudentRequest): StudentResponse {
-        logger.info("Creating student ${request.name}")
+    @PostMapping(value = ["/api/students"])
+    fun createStudent(
+        @RequestBody request: StudentRequest
+    ): StudentResponse {
+        logger.info("Creando estudiante ${request.name}")
         return studentService.createStudent(request)
     }
 
-    @GetMapping("/api/students")
-    open fun getAllStudents(): List<StudentResponse> {
-        logger.info("Getting all students")
+    @GetMapping(value = ["/api/students"])
+    fun getAllStudents(): List<StudentResponse> {
+        logger.info("Tomando a todos los estudiantes")
         return studentService.getAllStudents()
     }
 }
