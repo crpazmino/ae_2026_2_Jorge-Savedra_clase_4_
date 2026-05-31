@@ -1,4 +1,3 @@
-// Desarrollado por Carlos Pazmino - PUCE
 package com.example.demo
 
 import org.springframework.boot.autoconfigure.SpringBootApplication

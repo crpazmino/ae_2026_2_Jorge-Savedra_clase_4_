@@ -1,27 +1,22 @@
 package com.example.demo.exceptions
 
 import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.ExceptionHandler
-import org.springframework.web.bind.annotation.RestControllerAdvice
-import java.time.LocalDateTime
+import org.springframework.web.bind.annotation.*
+import java.time.Instant
 
 @RestControllerAdvice
 class GlobalExceptionHandler {
 
-    @ExceptionHandler(value = [EmailAlreadyExistsException::class])
-    fun handleEmailAlreadyExistsException(e: EmailAlreadyExistsException): ResponseEntity<ErrorResponse> {
-        val errorResponse = ErrorResponse(
-            message = "El Email ya existe: ${e.message}",
-            timestamp = LocalDateTime.now()
+    @ExceptionHandler(EmailAlreadyExistsException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleEmailAlreadyExists(
+        ex: EmailAlreadyExistsException
+    ): Map<String, Any> {
+        return mapOf(
+            "timestamp" to Instant.now().toString(),
+            "status" to 400,
+            "error" to "Bad Request",
+            "message" to (ex.message ?: "Email already exists")
         )
-        return ResponseEntity
-            .status(HttpStatus.BAD_REQUEST)
-            .body(errorResponse)
     }
 }
-
-data class ErrorResponse(
-    val message: String,
-    val timestamp: LocalDateTime = LocalDateTime.now()
-)

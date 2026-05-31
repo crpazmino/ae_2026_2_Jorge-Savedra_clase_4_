@@ -1,12 +1,12 @@
 package com.example.demo.dto
 
 data class StudentRequest(
-    val name: String,
-    val email: String
+    val name: String = "",
+    val email: String = ""
 )
 
 data class StudentResponse(
-    val id: Long,
-    val name: String,
-    val email: String
+    val id: Long = 0L,
+    val name: String = "",
+    val email: String = ""
 )

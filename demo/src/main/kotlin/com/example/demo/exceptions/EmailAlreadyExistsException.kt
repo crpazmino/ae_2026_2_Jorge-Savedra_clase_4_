@@ -1,3 +1,5 @@
 package com.example.demo.exceptions
 
-class EmailAlreadyExistsException(message: String) : RuntimeException(message)
+class EmailAlreadyExistsException(
+    message: String
+) : RuntimeException(message)
