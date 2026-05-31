@@ -1,5 +1,5 @@
 package com.example.demo.entities
-
+// Desarrollado por Carlos Pazmino - PUCE
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
