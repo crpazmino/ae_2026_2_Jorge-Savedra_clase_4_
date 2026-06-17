@@ -3,6 +3,7 @@ package com.pucetec.students.controllers
 import com.pucetec.students.dto.StudentRequest
 import com.pucetec.students.dto.StudentResponse
 import com.pucetec.students.services.StudentService
+import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -11,6 +12,7 @@ class StudentController(
     private val studentService: StudentService
 ) {
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     fun createStudent(@RequestBody request: StudentRequest): StudentResponse =
         studentService.createStudent(request)
 
@@ -21,4 +23,12 @@ class StudentController(
     @GetMapping("/{id}")
     fun getStudentById(@PathVariable id: Long): StudentResponse =
         studentService.getStudentById(id)
+
+    @PutMapping("/{id}")
+    fun updateStudent(@PathVariable id: Long, @RequestBody request: StudentRequest): StudentResponse =
+        studentService.updateStudent(id, request)
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun deleteStudent(@PathVariable id: Long) = studentService.deleteStudent(id)
 }

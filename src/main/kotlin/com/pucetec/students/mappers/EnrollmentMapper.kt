@@ -5,6 +5,8 @@ import com.pucetec.students.entities.Enrollment
 
 fun Enrollment.toResponse(): EnrollmentResponse = EnrollmentResponse(
     id = this.id,
-    studentName = this.student?.name ?: "",
-    subjectName = this.subject?.name ?: ""
+    createdAt = this.createdAt,
+    status = this.status,
+    student = this.student?.toResponse(),
+    subject = this.subject?.toResponse()
 )

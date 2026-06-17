@@ -22,6 +22,11 @@ class GlobalExceptionHandler {
     fun handleSubjectNotFound(ex: SubjectNotFoundException): Map<String, Any> =
         errorMap(404, "Not Found", ex.message)
 
+    @ExceptionHandler(EnrollmentNotFoundException::class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    fun handleEnrollmentNotFound(ex: EnrollmentNotFoundException): Map<String, Any> =
+        errorMap(404, "Not Found", ex.message)
+
     @ExceptionHandler(BlankNameException::class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun handleBlankName(ex: BlankNameException): Map<String, Any> =

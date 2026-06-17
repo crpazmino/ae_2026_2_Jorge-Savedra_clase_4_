@@ -5,8 +5,14 @@ data class EnrollmentRequest(
     val subjectId: Long = 0L
 )
 
+data class EnrollmentUpdateRequest(
+    val status: String = ""
+)
+
 data class EnrollmentResponse(
     val id: Long = 0L,
-    val studentName: String = "",
-    val subjectName: String = ""
+    val createdAt: String = "",
+    val status: String = "",
+    val student: StudentResponse? = null,
+    val subject: SubjectResponse? = null
 )

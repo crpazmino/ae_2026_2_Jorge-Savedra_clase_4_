@@ -13,5 +13,7 @@ open class Enrollment(
     val student: Student? = null,
     @ManyToOne
     @JoinColumn(name = "subject_id")
-    val subject: Subject? = null
+    val subject: Subject? = null,
+    val status: String = "INSCRITO",
+    val createdAt: String = java.time.LocalDateTime.now().toString()
 )

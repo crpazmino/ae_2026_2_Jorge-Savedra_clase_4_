@@ -2,6 +2,7 @@ package com.pucetec.students.services
 
 import com.pucetec.students.dto.StudentRequest
 import com.pucetec.students.dto.StudentResponse
+import com.pucetec.students.entities.Student
 import com.pucetec.students.exceptions.BlankNameException
 import com.pucetec.students.exceptions.StudentNotFoundException
 import com.pucetec.students.mappers.toEntity
@@ -31,5 +32,18 @@ class StudentService(
         val student = studentRepository.findById(id)
             .orElseThrow { StudentNotFoundException("Estudiante no encontrado con id: $id") }
         return student.toResponse()
+    }
+
+    fun updateStudent(id: Long, request: StudentRequest): StudentResponse {
+        val student = studentRepository.findById(id)
+            .orElseThrow { StudentNotFoundException("Estudiante no encontrado con id: $id") }
+        if (request.name.isBlank()) throw BlankNameException("El nombre no puede estar vacío")
+        val updated = studentRepository.save(Student(id = student.id, name = request.name, email = request.email))
+        return updated.toResponse()
+    }
+
+    fun deleteStudent(id: Long) {
+        if (!studentRepository.existsById(id)) throw StudentNotFoundException("Estudiante no encontrado con id: $id")
+        studentRepository.deleteById(id)
     }
 }

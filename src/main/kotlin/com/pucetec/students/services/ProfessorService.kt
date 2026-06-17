@@ -2,6 +2,7 @@ package com.pucetec.students.services
 
 import com.pucetec.students.dto.ProfessorRequest
 import com.pucetec.students.dto.ProfessorResponse
+import com.pucetec.students.entities.Professor
 import com.pucetec.students.exceptions.BlankNameException
 import com.pucetec.students.exceptions.ProfessorNotFoundException
 import com.pucetec.students.mappers.toEntity
@@ -31,5 +32,18 @@ class ProfessorService(
         val professor = professorRepository.findById(id)
             .orElseThrow { ProfessorNotFoundException("Profesor no encontrado con id: $id") }
         return professor.toResponse()
+    }
+
+    fun updateProfessor(id: Long, request: ProfessorRequest): ProfessorResponse {
+        val professor = professorRepository.findById(id)
+            .orElseThrow { ProfessorNotFoundException("Profesor no encontrado con id: $id") }
+        if (request.name.isBlank()) throw BlankNameException("El nombre no puede estar vacío")
+        val updated = professorRepository.save(Professor(id = professor.id, name = request.name, email = request.email))
+        return updated.toResponse()
+    }
+
+    fun deleteProfessor(id: Long) {
+        if (!professorRepository.existsById(id)) throw ProfessorNotFoundException("Profesor no encontrado con id: $id")
+        professorRepository.deleteById(id)
     }
 }
